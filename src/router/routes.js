@@ -1,5 +1,5 @@
 import AppLayout from "../layouts/AppLayout";
-import Test from "../views/Test";
+import NoMessageChosenPage from "../views/NoMessageChosenPage";
 
 export default [
     {
@@ -8,7 +8,8 @@ export default [
         children: [
             {
                 path: 't',
-                component: Test,
+                component: NoMessageChosenPage,
+                meta: { title: 'Список чатов' },
             }
         ],
     }

@@ -9,5 +9,5 @@ export default {
 }
 </script>
 
-<style>
+<style src="./assets/_templates.css">
 </style>

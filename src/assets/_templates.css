@@ -1,0 +1,38 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.flex-wrapper {
+    display: flex;
+}
+.flex-wrapper.flex-wrapper__wrap {
+    flex-wrap: wrap;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.opacity-7 {
+    opacity: .7;
+}
+.opacity-6 {
+    opacity: .6;
+}
+.opacity-5 {
+    opacity: .5;
+}
+.opacity-4 {
+    opacity: .4;
+}
+.opacity-3 {
+    opacity: .3;
+}
+.opacity-2 {
+    opacity: .2;
+}
+
+.relative {
+    position: relative;
+}
