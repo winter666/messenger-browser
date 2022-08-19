@@ -3,36 +3,42 @@
     <div class="left-sidebar">
       <va-list>
         <va-list-label>
-          Контакты
+          Чаты
         </va-list-label>
-
         <va-list-item
-            v-for="(contact, index) in contacts"
+            v-for="(chat, index) in getUser.chats"
             :key="index"
             class="sidebar-item"
-            to="#"
+            :to="{ name: 'Chat', params: { chat_id: (index+1) } }"
         >
           <va-list-item-section avatar>
             <va-avatar>
-              <img :src="contact.img">
+              {{ getUserAvatar(chat.users) }}
             </va-avatar>
           </va-list-item-section>
 
           <va-list-item-section>
             <va-list-item-label>
-              {{ contact.name }}
+              {{ getChatPartner(chat.users).name }}
             </va-list-item-label>
 
             <va-list-item-label caption>
-              {{ contact.address }}
+              <span
+                  v-if="chat.messages[0].user.id === getUser.id"
+                  style="color: #3f3f3f"
+              >
+                Вы:
+              </span>
+              {{ chat.messages[0].content }}
             </va-list-item-label>
           </va-list-item-section>
 
           <va-list-item-section icon>
-            <va-icon
-                name="remove_red_eye"
-                color="gray"
-            />
+<!--            <va-icon-->
+<!--                name="remove_red_eye"-->
+<!--                color="gray"-->
+<!--            />-->
+            {{ parseMessageDate(chat.messages[0].created_at) }}
           </va-list-item-section>
         </va-list-item>
       </va-list>
@@ -41,6 +47,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "GeneralSidebar",
   data () {
@@ -68,6 +76,36 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    ...mapGetters(['getUser']),
+  },
+  methods: {
+    getChatPartner(participants) {
+      return participants[participants.findIndex((p) => p.id !== this.$store.getters.getUser.id)];
+    },
+    getUserAvatar(participants) {
+      const user = this.getChatPartner(participants);
+      const userNameArray = user.name
+          .split(' ')
+          .map(partName => partName.substr(0, 1));
+      return user.avatar ?? userNameArray.join('').toUpperCase();
+    },
+    parseMessageDate(stringDate) {
+      // TODO: временно - переделать после получения данных
+      const isToday = (date) => {
+        const today = new Date()
+        return date.getDate() === today.getDate() &&
+            date.getMonth() === today.getMonth() &&
+            date.getFullYear() === today.getFullYear()
+      }
+      const date = new Date(stringDate);
+      if (isToday(date)) {
+        return date.getUTCHours() + ":" + date.getUTCMinutes();
+      }
+
+      return date.getUTCDay();
+    },
   },
 }
 </script>
