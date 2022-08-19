@@ -1,6 +1,6 @@
 <template>
   <div>
-    Body
+   <va-alert>Body</va-alert>
   </div>
 </template>
 
@@ -9,7 +9,3 @@ export default {
 name: "Test"
 }
 </script>
-
-<style scoped>
-
-</style>
