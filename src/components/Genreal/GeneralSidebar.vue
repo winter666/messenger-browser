@@ -6,10 +6,10 @@
           Чаты
         </va-list-label>
         <va-list-item
-            v-for="(chat, index) in getUser.chats"
-            :key="index"
+            v-for="chat in getChats"
+            :key="chat.id"
             class="sidebar-item"
-            :to="{ name: 'Chat', params: { chat_id: (index+1) } }"
+            :to="{ name: 'Chat', params: { chat_id: chat.id } }"
         >
           <va-list-item-section avatar>
             <va-avatar>
@@ -53,32 +53,10 @@ export default {
   name: "GeneralSidebar",
   data () {
     return {
-      contacts: [
-        {
-          name: 'Audrey Clay',
-          address: '644 Vermont Court, Freelandville, Kentucky, 2619',
-          img: 'https://randomuser.me/api/portraits/women/5.jpg'
-        },
-        {
-          name: 'Aguirre Klein',
-          address: '626 Carroll Street, Roulette, Ohio, 1477',
-          img: 'https://randomuser.me/api/portraits/men/1.jpg'
-        },
-        {
-          name: 'Tucker Kaufman',
-          address: '887 Winthrop Street, Tryon, Florida, 3912',
-          img: 'https://randomuser.me/api/portraits/men/3.jpg'
-        },
-        {
-          name: 'Herbert Keller',
-          address: '286 NW. Shore St.Longwood, FL 32779',
-          img: 'https://randomuser.me/api/portraits/men/5.jpg'
-        },
-      ],
     };
   },
   computed: {
-    ...mapGetters(['getUser']),
+    ...mapGetters(['getUser', 'getChats']),
   },
   methods: {
     getChatPartner(participants) {
@@ -101,10 +79,10 @@ export default {
       }
       const date = new Date(stringDate);
       if (isToday(date)) {
-        return date.getUTCHours() + ":" + date.getUTCMinutes();
+        return date.getHours() + ":" + date.getMinutes();
       }
 
-      return date.getUTCDay();
+      return date.toLocaleDateString();
     },
   },
 }
