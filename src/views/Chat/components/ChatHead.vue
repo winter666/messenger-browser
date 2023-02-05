@@ -34,6 +34,13 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.chat-head {
+  padding: 12px;
+  background-color: #3f3f3f;
+  text-align: center;
+  .companion-name {
+    color: #fff;
+  }
+}
 </style>

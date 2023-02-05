@@ -40,6 +40,7 @@
 <!--            />-->
             {{ parseMessageDate(chat.messages[0].created_at) }}
           </va-list-item-section>
+          <div v-if="chat.id === parseInt($route.params.chat_id)" class="active-chat"></div>
         </va-list-item>
       </va-list>
     </div>
@@ -88,7 +89,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .left-sidebar-container {
   background-color: #fff;
   width: 30%;
@@ -103,5 +104,20 @@ export default {
 }
 .va-list-item {
   text-decoration: none!important;
+  color: #000;
+  position: relative;
+
+  .active-chat {
+    background-color: rgba(10, 250, 250, 0.1);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+}
+.va-list-item:active {
+  color: #000;
 }
 </style>
