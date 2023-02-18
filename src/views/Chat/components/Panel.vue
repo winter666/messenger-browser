@@ -11,6 +11,7 @@
 
 <script>
 import {mapGetters, mapActions} from "vuex";
+import chat from '@/modules/api/chat';
 
 export default {
   name: "Panel",
@@ -28,11 +29,15 @@ export default {
       let created_at = (new Date).toLocaleDateString("en-US");
       return { user, content, created_at };
     },
+    // TODO: добавить сообщениям свойство status
     pushMessage() {
       const message = this.prepareMessage();
-      this.appendMessage({ chat_id: parseInt(this.$route.params.chat_id), message});
+      const chat_id = parseInt(this.$route.params.chat_id);
+      const { user } = message;
+      chat.sendMessage(this.messageContent, chat_id, user.id);
+      this.appendMessage({ chat_id, message});
       this.messageContent = '';
-    }
+    },
   },
 }
 </script>
