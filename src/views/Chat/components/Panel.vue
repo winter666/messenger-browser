@@ -4,7 +4,7 @@
       <va-input v-model="messageContent" type="textarea" placeholder="Type your message.." />
     </div>
     <div class="button-send">
-      <va-button @click="pushMessage">Send</va-button>
+      <va-button @click="pushMessage" :disabled="isBlockBtn">Send</va-button>
     </div>
   </div>
 </template>
@@ -19,6 +19,11 @@ export default {
     return {
       messageContent: ''
     }
+  },
+  computed: {
+    isBlockBtn() {
+      return this.messageContent.trim().length === 0;
+    },
   },
   methods: {
     ...mapGetters(['getUser']),

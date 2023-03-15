@@ -3,7 +3,7 @@ import axios from "axios";
 class Request {
 
     constructor() {
-        this.baseUrl = 'http://messenger-local.api/api/';
+        this.baseUrl = process.env.VUE_APP_API_URL;
     }
 
     get(params) {

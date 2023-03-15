@@ -23,7 +23,7 @@ export default {
     ...mapActions(['setChats']),
     async requestUserInfo() {
       const {data} = await user.getInfo(this.getUser().id);
-      const chats = data.chats;
+      const chats = data.item.chats;
       this.setChats(chats);
       setTimeout(() => this.requestCompleted = true, 700);
     },
