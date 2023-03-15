@@ -6,10 +6,9 @@
 </template>
 
 <script>
-import user from './modules/api/user';
 import {mapActions, mapGetters} from "vuex";
 import Loader from "./components/Genreal/Loader";
-import init from '@/modules/web-socket';
+import connection from '@/modules/web-socket';
 
 export default {
   name: 'App',
@@ -22,16 +21,21 @@ export default {
   methods: {
     ...mapGetters(['getUser']),
     ...mapActions(['setChats']),
-    async requestUserInfo() {
-      const {data} = await user.getInfo(this.getUser().id);
-      const chats = data.item.chats;
-      this.setChats(chats);
-      setTimeout(() => this.requestCompleted = true, 700);
-    },
+    async connect() {
+      /**
+       * @type MessengerSocket
+       */
+      const socket = await connection();
+      if (socket.isConnected()) {
+        socket.getUserChats(this.getUser().id, data => {
+          this.setChats(data);
+          setTimeout(() => this.requestCompleted = true, 700);
+        });
+      }
+    }
   },
   created() {
-    init();
-    this.requestUserInfo();
+    this.connect();
   }
 }
 </script>
