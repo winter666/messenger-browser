@@ -37,6 +37,8 @@ export default {
 <style scoped lang="scss">
 .message-container {
   min-height: 60vh;
+  max-height: 60vh;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   padding: 10px;

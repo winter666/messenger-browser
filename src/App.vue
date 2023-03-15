@@ -6,36 +6,36 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+import {mapGetters} from "vuex";
 import Loader from "./components/Genreal/Loader";
-import connection from '@/modules/web-socket';
 
 export default {
   name: 'App',
   components: {Loader},
   data() {
     return {
-      requestCompleted: false,
+      requestCompleted: true,
     };
+  },
+  sockets: {
+    connect() {
+    },
+    customEmit(data) {
+      console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
+    }
   },
   methods: {
     ...mapGetters(['getUser']),
-    ...mapActions(['setChats']),
-    async connect() {
-      /**
-       * @type MessengerSocket
-       */
-      const socket = await connection();
-      if (socket.isConnected()) {
-        socket.getUserChats(this.getUser().id, data => {
-          this.setChats(data);
-          setTimeout(() => this.requestCompleted = true, 700);
-        });
-      }
-    }
+  },
+  mounted() {
+    this.sockets.subscribe('get-user-chats', (data) => {
+      this.requestCompleted = true;
+    });
+    this.sockets.subscribe('send-message', (data) => {
+    });
   },
   created() {
-    this.connect();
+    this.$socket.emit('get-user-chats', { user_id: this.getUser().id });
   }
 }
 </script>

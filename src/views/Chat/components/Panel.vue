@@ -11,13 +11,13 @@
 
 <script>
 import {mapGetters, mapActions} from "vuex";
-import chat from '@/modules/api/chat';
 
 export default {
   name: "Panel",
   data() {
     return {
-      messageContent: ''
+      messageContent: '',
+      socket: null,
     }
   },
   computed: {
@@ -27,23 +27,26 @@ export default {
   },
   methods: {
     ...mapGetters(['getUser']),
-    ...mapActions(['appendMessage']),
     prepareMessage() {
       let user = this.getUser();
       let content = this.messageContent;
       let created_at = (new Date).toLocaleDateString("en-US");
       return { user, content, created_at };
     },
+
     // TODO: добавить сообщениям свойство status
-    pushMessage() {
+    async pushMessage() {
       const message = this.prepareMessage();
       const chat_id = parseInt(this.$route.params.chat_id);
-      const { user } = message;
-      chat.sendMessage(this.messageContent, chat_id, user.id);
-      this.appendMessage({ chat_id, message});
+      const {user} = message;
+
+      this.$socket.emit('send-message', {content: this.messageContent, chat_id, user_id: user.id});
       this.messageContent = '';
     },
   },
+  async created() {
+
+  }
 }
 </script>
 

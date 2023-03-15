@@ -18,7 +18,7 @@ export default [
                 name: 'Chat',
                 path: 'me/:chat_id',
                 component: Chat,
-                meta: { title: 'Список чатов' },
+                meta: { title: 'Чат' },
             },
         ],
     }
