@@ -9,6 +9,7 @@
 import user from './modules/api/user';
 import {mapActions, mapGetters} from "vuex";
 import Loader from "./components/Genreal/Loader";
+import init from '@/modules/web-socket';
 
 export default {
   name: 'App',
@@ -29,6 +30,7 @@ export default {
     },
   },
   created() {
+    init();
     this.requestUserInfo();
   }
 }
