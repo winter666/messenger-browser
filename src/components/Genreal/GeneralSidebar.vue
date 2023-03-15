@@ -24,21 +24,17 @@
 
             <va-list-item-label caption>
               <span
-                  v-if="chat.messages[0].user.id === getUser.id"
+                  v-if="chat.messages[chat.messages.length - 1].user.id === getUser.id"
                   style="color: #3f3f3f"
               >
                 Вы:
               </span>
-              {{ chat.messages[0].content }}
+              {{ chat.messages[chat.messages.length - 1].content }}
             </va-list-item-label>
           </va-list-item-section>
 
           <va-list-item-section icon>
-<!--            <va-icon-->
-<!--                name="remove_red_eye"-->
-<!--                color="gray"-->
-<!--            />-->
-            {{ parseMessageDate(chat.messages[0].created_at) }}
+            {{ parseMessageDate(chat.messages[chat.messages.length - 1].created_at) }}
           </va-list-item-section>
           <div v-if="chat.id === parseInt($route.params.chat_id)" class="active-chat"></div>
         </va-list-item>
