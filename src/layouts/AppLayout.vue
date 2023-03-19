@@ -11,12 +11,36 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 import GeneralSidebar from "../components/Genreal/GeneralSidebar";
 import GeneralHeader from "../components/Genreal/GeneralHeader";
+import Loader from "../components/Genreal/Loader";
 
 export default {
   name: "AppLayout",
-  components: { GeneralHeader, GeneralSidebar },
+  components: { GeneralHeader, GeneralSidebar, Loader },
+  data() {
+    return {
+      requestCompleted: true,
+    };
+  },
+  sockets: {
+    connect() {
+    },
+  },
+  methods: {
+    ...mapGetters(['getUser']),
+  },
+  mounted() {
+    this.sockets.subscribe('get-user-chats', (data) => {
+      this.requestCompleted = true;
+    });
+    this.sockets.subscribe('send-message', (data) => {
+    });
+  },
+  created() {
+    this.$socket.emit('get-user-chats', { user_id: this.getUser().id });
+  },
 }
 </script>
 

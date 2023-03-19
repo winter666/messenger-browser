@@ -1,10 +1,6 @@
 export default {
     state: {
-        user: {
-            id: 1,
-            name: 'Davut',
-            email: 'sergeevdavut@mail.ru',
-        }
+        user: null
     },
     mutations: {
         SET_USER(state, payload) {
