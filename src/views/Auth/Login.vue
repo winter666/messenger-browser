@@ -18,11 +18,14 @@
                 placeholder="Password"
             />
           </div>
-          <div>
-            <va-button color="success" class="w-100">
+          <div class="mb-3">
+            <va-button @click="login" :disabled="requestProcess" color="success" class="w-100">
               Log in
             </va-button>
           </div>
+          <va-alert v-if="hasError" color="danger" icon="warning">
+              {{ loginError }}
+          </va-alert>
         </va-card-content>
       </va-card>
     </div>
@@ -30,16 +33,48 @@
 </template>
 
 <script>
+import {login, me} from "@/modules/api/auth";
+import {mapActions} from "vuex";
+
 export default {
   name: "Login",
+  constants: {
+    loginError: 'User was not found',
+  },
   data() {
     return {
       form: {
         email: '',
         password: '',
-      }
+      },
+      requestProcess: false,
+      hasError: false,
+      loginError: 'User was not found',
     };
-  }
+  },
+  methods: {
+    ...mapActions(['setUser']),
+    async login() {
+      this.requestProcess = true;
+      this.hasError = false;
+      const data = {...this.form};
+      try {
+        const response = await login(data);
+        const access_token = response.data.access_token;
+        const token_type = response.data.token_type;
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('token_type', token_type);
+        const userDataResponse = await me();
+        const user = userDataResponse.data;
+        this.setUser(user);
+        this.$router.push({ name: 'Main' });
+      } catch (e) {
+        this.hasError = true;
+      }
+
+      this.requestProcess = false;
+    },
+  },
 }
 </script>
 

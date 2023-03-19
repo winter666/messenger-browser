@@ -7,11 +7,11 @@ class Request {
     }
 
     get(params) {
-        return axios.get(this.baseUrl + params.entity + params.uri);
+        return axios.get(this.baseUrl + params.entity + params.uri, {headers: params.headers ?? {}});
     }
 
     post(params) {
-        return axios.post(this.baseUrl + params.entity + params.uri, params.data);
+        return axios.post(this.baseUrl + params.entity + params.uri, params.data, {headers: params.headers ?? {}});
     }
 }
 

@@ -1,27 +1,29 @@
 <template>
   <div>
-    <GeneralHeader />
+      <GeneralHeader />
       <div class="flex-wrapper flex-wrapper__wrap relative">
         <GeneralSidebar />
         <div class="chat-window">
           <router-view />
         </div>
       </div>
+      <Loader v-if="!requestCompleted" />
   </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 import GeneralSidebar from "../components/Genreal/GeneralSidebar";
 import GeneralHeader from "../components/Genreal/GeneralHeader";
 import Loader from "../components/Genreal/Loader";
+import { me } from "@/modules/api/auth";
 
 export default {
   name: "AppLayout",
   components: { GeneralHeader, GeneralSidebar, Loader },
   data() {
     return {
-      requestCompleted: true,
+      requestCompleted: false,
     };
   },
   sockets: {
@@ -29,6 +31,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['setUser']),
     ...mapGetters(['getUser']),
   },
   mounted() {
@@ -38,8 +41,17 @@ export default {
     this.sockets.subscribe('send-message', (data) => {
     });
   },
-  created() {
-    this.$socket.emit('get-user-chats', { user_id: this.getUser().id });
+  async created() {
+    try {
+      const response = await me();
+      const user = response.data;
+      this.setUser(user);
+
+      this.$socket.emit('get-user-chats', {user_id: this.getUser().id});
+    } catch (e) {
+      localStorage.clear();
+      this.$router.push({ name: 'Login' });
+    }
   },
 }
 </script>
