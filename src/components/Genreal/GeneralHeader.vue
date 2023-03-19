@@ -1,6 +1,6 @@
 <template>
   <div class="navbar-sticky">
-    <va-navbar color="dark" class="mb-2">
+    <va-navbar color="#111111">
       <template #left>
         <va-navbar-item>
           <va-image src="../assets/logo.png"/>
@@ -30,6 +30,11 @@ export default {
   top: 0;
   left: 0;
   z-index: 2000;
-  width: 100vw;
+  width: 100%;
+}
+.va-navbar {
+  width: auto !important;
+  min-width: auto !important;
+  padding: 1rem;
 }
 </style>

@@ -89,7 +89,7 @@ export default {
 .left-sidebar-container {
   background-color: #fff;
   width: 30%;
-  height: calc(100vh - 4.0625rem);
+  height: calc(100vh - 3.2rem);
   box-shadow: 0.3em 0.3em 1em rgba(0,0,0,0.3);
 }
 .left-sidebar-container .left-sidebar {
