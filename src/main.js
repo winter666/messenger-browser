@@ -1,9 +1,10 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
 import router from './router';
 import store from './store';
-import { createVuestic } from 'vuestic-ui'
-import VueSocketIO from 'vue-3-socket.io'
+import { createVuestic } from 'vuestic-ui';
+// import "vuestic-ui/css"; // Не работает((
+import VueSocketIO from 'vue-3-socket.io';
 import SocketIO from 'socket.io-client';
 
 const socketConnection = SocketIO('http://localhost:3000');
