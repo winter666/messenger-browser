@@ -24,7 +24,6 @@ export default {
         password_confirmation: '',
       },
       requestProcess: false,
-      errorText: 'User was not found',
       errors: {
         name: [],
         email: [],
