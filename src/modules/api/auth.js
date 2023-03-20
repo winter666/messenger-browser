@@ -8,6 +8,14 @@ export const login = ({email, password}) => {
     });
 }
 
+export const register = ({name, email, password, password_confirmation}) => {
+    return request.post({
+        entity: '',
+        uri: 'auth/registration',
+        data: {name, email, password, password_confirmation},
+    });
+}
+
 export const logout = () => {
     return request.post({
         entity: '',

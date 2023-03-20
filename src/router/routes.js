@@ -5,6 +5,8 @@ import Login from "@/views/Auth/Login";
 
 import auth from '@/middleware/auth';
 import guest from '@/middleware/guest';
+import Register from "@/views/Auth/Register";
+import AuthLayout from "@/layouts/AuthLayout";
 
 export default [
     {
@@ -27,9 +29,23 @@ export default [
         ],
     },
     {
-        name: 'Login',
-        path: '/login',
-        component: Login,
-        meta: { title: 'Log in', middleware: [guest] },
+        path: '/auth',
+        component: AuthLayout,
+        redirect: 'login',
+        meta: { middleware: [guest] },
+        children: [
+            {
+                name: 'Login',
+                path: 'login',
+                component: Login,
+                meta: { title: 'Log in' },
+            },
+            {
+                name: 'Register',
+                path: 'register',
+                component: Register,
+                meta: {title: 'Register' },
+            },
+        ],
     },
 ];
