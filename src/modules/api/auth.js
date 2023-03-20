@@ -21,9 +21,7 @@ export const logout = () => {
         entity: '',
         uri: 'auth/logout',
         data: {},
-        headers: {
-            Authorization: localStorage.getItem('token_type') + " " + localStorage.getItem('access_token'),
-        },
+        authorization: true,
     });
 }
 
@@ -32,8 +30,6 @@ export const me = () => {
         entity: '',
         uri: 'auth/me',
         data: {},
-        headers: {
-            Authorization: localStorage.getItem('token_type') + " " + localStorage.getItem('access_token'),
-        },
+        authorization: true,
     });
 }
