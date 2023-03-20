@@ -44,7 +44,7 @@ export default {
     ...mapGetters(['getUser']),
   },
   methods: {
-    ...mapActions(['enableMainLoader', 'disableMainLoader']),
+    ...mapActions(['enableMainLoader', 'disableMainLoader', 'setUser', 'clearChats', 'clearUser']),
     getUserAvatar(user) {
       const userNameArray = user.name
           .split(' ')
@@ -55,6 +55,8 @@ export default {
       this.enableMainLoader();
       try {
         await logout();
+        this.clearChats();
+        this.clearUser();
         localStorage.clear();
         this.$router.push({ name: 'Login' });
       } catch(e) {

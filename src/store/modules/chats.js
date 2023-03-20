@@ -27,6 +27,9 @@ export default {
         appendMessage({ commit }, payload) {
             commit('APPEND_MSG', payload);
         },
+        clearChats({ commit }) {
+            commit('SOCKET_get-user-chats', []);
+        },
         "SOCKET_send-message"({ commit }, payload) {
             commit('SOCKET_send-message', payload);
         }

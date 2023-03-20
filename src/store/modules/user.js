@@ -16,5 +16,8 @@ export default {
         setUser({ commit }, payload) {
             commit('SET_USER', payload);
         },
+        clearUser({ commit }) {
+            commit('SET_USER', null);
+        },
     },
 }
