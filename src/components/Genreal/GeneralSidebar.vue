@@ -2,9 +2,6 @@
   <div class="left-sidebar-container">
     <div class="left-sidebar">
       <va-list>
-        <va-list-label>
-          Чаты
-        </va-list-label>
         <va-list-item
             v-for="chat in getChats"
             :key="chat.id"
@@ -67,7 +64,6 @@ export default {
       return user.avatar ?? userNameArray.join('').toUpperCase();
     },
     parseMessageDate(stringDate) {
-      // TODO: временно - переделать после получения данных
       const isToday = (date) => {
         const today = new Date()
         return date.getDate() === today.getDate() &&
@@ -89,7 +85,7 @@ export default {
 .left-sidebar-container {
   background-color: #fff;
   width: 30%;
-  height: calc(100vh - 3.2rem);
+  height: calc(100vh - 5rem);
   box-shadow: 0.3em 0.3em 1em rgba(0,0,0,0.3);
 }
 .left-sidebar-container .left-sidebar {

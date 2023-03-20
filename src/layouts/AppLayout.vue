@@ -7,7 +7,7 @@
           <router-view />
         </div>
       </div>
-      <Loader v-if="!requestCompleted" />
+      <Loader v-if="getActiveMainLoader" />
   </div>
 </template>
 
@@ -22,26 +22,28 @@ export default {
   name: "AppLayout",
   components: { GeneralHeader, GeneralSidebar, Loader },
   data() {
-    return {
-      requestCompleted: false,
-    };
+    return {};
   },
   sockets: {
     connect() {
     },
   },
+  computed: {
+    ...mapGetters(['getActiveMainLoader']),
+  },
   methods: {
-    ...mapActions(['setUser']),
+    ...mapActions(['setUser', 'enableMainLoader', 'disableMainLoader']),
     ...mapGetters(['getUser']),
   },
   mounted() {
     this.sockets.subscribe('get-user-chats', (data) => {
-      this.requestCompleted = true;
+      this.disableMainLoader();
     });
     this.sockets.subscribe('send-message', (data) => {
     });
   },
   async created() {
+    this.enableMainLoader();
     try {
       const response = await me();
       const user = response.data;

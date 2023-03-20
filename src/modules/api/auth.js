@@ -8,6 +8,17 @@ export const login = ({email, password}) => {
     });
 }
 
+export const logout = () => {
+    return request.post({
+        entity: '',
+        uri: 'auth/logout',
+        data: {},
+        headers: {
+            Authorization: localStorage.getItem('token_type') + " " + localStorage.getItem('access_token'),
+        },
+    });
+}
+
 export const me = () => {
     return request.post({
         entity: '',
