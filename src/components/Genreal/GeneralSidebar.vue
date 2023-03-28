@@ -35,6 +35,7 @@
           </va-list-item-section>
           <div v-if="chat.id === parseInt($route.params.chat_id)" class="active-chat"></div>
         </va-list-item>
+        <div v-if="getChats.length === 0" class="opacity-5 empty-list">Nothing to view</div>
       </va-list>
     </div>
   </div>
@@ -111,5 +112,8 @@ export default {
 }
 .va-list-item:active {
   color: #000;
+}
+.empty-list {
+  margin: 20px;
 }
 </style>

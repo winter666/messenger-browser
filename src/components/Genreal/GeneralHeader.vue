@@ -3,7 +3,7 @@
     <va-navbar color="#111111">
       <template #left>
         <va-navbar-item>
-          <va-image src="../assets/logo.png"/>
+          <va-button preset="secondary" border-color="primary" icon="add" @click="callModalNewChat">New Chat</va-button>
         </va-navbar-item>
       </template>
       <template #center>
@@ -38,13 +38,23 @@
 import {mapActions, mapGetters} from "vuex";
 import {logout} from "@/modules/api/auth";
 
+// TODO: вызывать по нажатию модалку
+// TODO: в модалке выбор настроек (пока шо доступны только не многие из них)
+// TODO: кнопка "создать"
+
 export default {
   name: "GeneralHeader",
   computed: {
     ...mapGetters(['getUser']),
   },
   methods: {
-    ...mapActions(['enableMainLoader', 'disableMainLoader', 'setUser', 'clearChats', 'clearUser']),
+    ...mapActions([
+        'enableMainLoader',
+      'disableMainLoader',
+      'setUser', 'clearChats',
+      'clearUser', 'enableModal',
+        'setModalComponentType',
+    ]),
     getUserAvatar(user) {
       const userNameArray = user.name
           .split(' ')
@@ -64,6 +74,10 @@ export default {
       }
       this.disableMainLoader();
     },
+    callModalNewChat() {
+      this.setModalComponentType('new_chat');
+      this.enableModal();
+    }
   },
 }
 </script>

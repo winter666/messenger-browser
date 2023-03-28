@@ -8,6 +8,7 @@
         </div>
       </div>
       <Loader v-if="getActiveMainLoader" />
+      <ModalPopup />
   </div>
 </template>
 
@@ -17,10 +18,11 @@ import GeneralSidebar from "../components/Genreal/GeneralSidebar";
 import GeneralHeader from "../components/Genreal/GeneralHeader";
 import Loader from "../components/Genreal/Loader";
 import { me } from "@/modules/api/auth";
+import ModalPopup from "../components/Modals/ModalPopup";
 
 export default {
   name: "AppLayout",
-  components: { GeneralHeader, GeneralSidebar, Loader },
+  components: {ModalPopup, GeneralHeader, GeneralSidebar, Loader },
   data() {
     return {};
   },
