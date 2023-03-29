@@ -1,11 +1,12 @@
 <template>
   <div class="left-sidebar-container">
     <div class="left-sidebar">
-      <va-list>
+      <va-list class="list">
         <va-list-item
             v-for="chat in getChats"
             :key="chat.id"
-            class="sidebar-item"
+            class="list__item"
+            :class="{active: chat.id === parseInt($route.params.chat_id)}"
             :to="{ name: 'Chat', params: { chat_id: chat.id } }"
         >
           <va-list-item-section avatar>
@@ -33,7 +34,6 @@
           <va-list-item-section icon>
             {{ parseMessageDate(chat.messages[chat.messages.length - 1].created_at) }}
           </va-list-item-section>
-          <div v-if="chat.id === parseInt($route.params.chat_id)" class="active-chat"></div>
         </va-list-item>
         <div v-if="getChats.length === 0" class="opacity-5 empty-list">Nothing to view</div>
       </va-list>
@@ -89,12 +89,11 @@ export default {
   height: calc(100vh - 5rem);
   box-shadow: 0.3em 0.3em 1em rgba(0,0,0,0.3);
 }
+
 .left-sidebar-container .left-sidebar {
   padding: 0 1.5rem;
 }
-.left-sidebar .sidebar-item .va-list-item__inner {
-  padding: 5px 0 !important;
-}
+
 .va-list-item {
   text-decoration: none!important;
   color: #000;

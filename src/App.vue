@@ -10,5 +10,5 @@ export default {
 }
 </script>
 
-<style src="./assets/_templates.css">
+<style src="./assets/_normalize.scss" lang="scss">
 </style>

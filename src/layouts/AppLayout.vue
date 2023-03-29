@@ -17,7 +17,7 @@ import {mapActions, mapGetters} from 'vuex';
 import GeneralSidebar from "../components/Genreal/GeneralSidebar";
 import GeneralHeader from "../components/Genreal/GeneralHeader";
 import Loader from "../components/Genreal/Loader";
-import { me } from "@/modules/api/auth";
+import { me } from "../modules/api/auth";
 import ModalPopup from "../components/Modals/ModalPopup";
 
 export default {
