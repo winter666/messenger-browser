@@ -3,110 +3,11 @@
     <va-card-title>New Chat</va-card-title>
     <va-card-content>
       <div class="user-list">
-        <va-list class="list">
-          <va-list-item @click="selectUser(1)" :class="{active: 1 === selectedUser}" class="list__item">
-            <va-list-item-section avatar>
-              <va-avatar>
-                T
-              </va-avatar>
-            </va-list-item-section>
-
-            <va-list-item-section>
-              <va-list-item-label>
-                Test
-              </va-list-item-label>
-
-              <va-list-item-label caption>
-                test
-              </va-list-item-label>
-            </va-list-item-section>
-          </va-list-item>
-          <va-list-item @click="selectUser(2)" :class="{active: 2 === selectedUser}" class="list__item">
-            <va-list-item-section avatar>
-              <va-avatar>
-                T
-              </va-avatar>
-            </va-list-item-section>
-
-            <va-list-item-section>
-              <va-list-item-label>
-                Test
-              </va-list-item-label>
-
-              <va-list-item-label caption>
-                test
-              </va-list-item-label>
-            </va-list-item-section>
-          </va-list-item>
-          <va-list-item @click="selectUser(3)" :class="{active: 3 === selectedUser}" class="list__item">
-            <va-list-item-section avatar>
-              <va-avatar>
-                T
-              </va-avatar>
-            </va-list-item-section>
-
-            <va-list-item-section>
-              <va-list-item-label>
-                Test
-              </va-list-item-label>
-
-              <va-list-item-label caption>
-                test
-              </va-list-item-label>
-            </va-list-item-section>
-          </va-list-item>
-          <va-list-item @click="selectUser(4)" :class="{active: 4 === selectedUser}" class="list__item">
-            <va-list-item-section avatar>
-              <va-avatar>
-                T
-              </va-avatar>
-            </va-list-item-section>
-
-            <va-list-item-section>
-              <va-list-item-label>
-                Test
-              </va-list-item-label>
-
-              <va-list-item-label caption>
-                test
-              </va-list-item-label>
-            </va-list-item-section>
-          </va-list-item>
-          <va-list-item @click="selectUser(5)" :class="{active: 5 === selectedUser}" class="list__item">
-            <va-list-item-section avatar>
-              <va-avatar>
-                T
-              </va-avatar>
-            </va-list-item-section>
-
-            <va-list-item-section>
-              <va-list-item-label>
-                Test
-              </va-list-item-label>
-
-              <va-list-item-label caption>
-                test
-              </va-list-item-label>
-            </va-list-item-section>
-          </va-list-item>
-          <va-list-item @click="selectUser(6)" :class="{active: 6 === selectedUser}" class="list__item">
-            <va-list-item-section avatar>
-              <va-avatar>
-                T
-              </va-avatar>
-            </va-list-item-section>
-
-            <va-list-item-section>
-              <va-list-item-label>
-                Test
-              </va-list-item-label>
-
-              <va-list-item-label caption>
-                test
-              </va-list-item-label>
-            </va-list-item-section>
-          </va-list-item>
-        </va-list>
+        <user-list
+            :users="users"
+            :selected-id="selectedUserId"
+            @selected="userSelected"
+        />
       </div>
     </va-card-content>
     <va-card-actions><va-button>ok</va-button></va-card-actions>
@@ -114,18 +15,38 @@
 </template>
 
 <script>
-import ModalPopup from "../ModalPopup";
+import UserList from "@/components/Lists/UserList";
 export default {
   name: "NewChat",
-  components: {ModalPopup},
+  components: { UserList },
   data() {
     return {
-      selectedUser: null,
+      selectedUserId: null,
+      users: [
+        {
+          id: 1, name: 'Test 1'
+        },
+        {
+          id: 2, name: 'Test 2'
+        },
+        {
+          id: 3, name: 'Test 3'
+        },
+        {
+          id: 4, name: 'Test 4'
+        },
+        {
+          id: 5, name: 'Test 5'
+        },
+        {
+          id: 6, name: 'Test 6'
+        },
+      ],
     };
   },
   methods: {
-    selectUser(userId) {
-      this.selectedUser = userId;
+    userSelected(userId) {
+      this.selectedUserId = userId;
     }
   },
 }
