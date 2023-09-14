@@ -1,12 +1,21 @@
 <template>
-  <div class="loader-wrapper">
+  <div
+      class="loader-wrapper"
+      :style="{width: fullResolution ? '100vw' : '100%', height: fullResolution ? '100vh' : '100%'}">
     <div class="lds-dual-ring"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Loader"
+  name: "Loader",
+  props: {
+    fullResolution: {
+      type: Boolean,
+      required: false,
+      default: true,
+    }
+  },
 }
 </script>
 
@@ -15,8 +24,6 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

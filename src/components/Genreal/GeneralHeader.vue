@@ -3,7 +3,7 @@
     <va-navbar color="#111111">
       <template #left>
         <va-navbar-item>
-          <va-image src="../assets/logo.png"/>
+          <NewChatBtn />
         </va-navbar-item>
       </template>
       <template #center>
@@ -37,9 +37,11 @@
 <script>
 import {mapActions, mapGetters} from "vuex";
 import {logout} from "@/modules/api/auth";
+import NewChatBtn from "@/components/Buttons/NewChatBtn";
 
 export default {
   name: "GeneralHeader",
+  components: {NewChatBtn},
   computed: {
     ...mapGetters(['getUser']),
   },
