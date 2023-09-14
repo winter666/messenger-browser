@@ -1,5 +1,5 @@
 <template>
-  <va-modal v-model="active" title="New Chat" no-padding>
+  <va-modal v-model="active" no-padding>
     <template #content="{ ok }">
       <component :is="getModal(getModalComponentType)" />
     </template>

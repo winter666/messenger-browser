@@ -18,7 +18,7 @@
           {{ getChatPartner(chat.users).name }}
         </va-list-item-label>
 
-        <va-list-item-label caption>
+        <va-list-item-label v-if="chat.messages.length > 0" caption>
               <span
                   v-if="chat.messages[chat.messages.length - 1].user.id === getUser.id"
                   style="color: #3f3f3f"
@@ -29,7 +29,7 @@
         </va-list-item-label>
       </va-list-item-section>
 
-      <va-list-item-section icon>
+      <va-list-item-section v-if="chat.messages.length" icon>
         {{ parseMessageDate(chat.messages[chat.messages.length - 1].created_at) }}
       </va-list-item-section>
     </va-list-item>
