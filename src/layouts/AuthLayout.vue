@@ -10,8 +10,9 @@
 </template>
 
 <script>
-import {login, me, register} from "@/modules/api/auth";
-import {mapActions} from "vuex";
+import { login, me, register } from "@/modules/api/auth";
+import { mapActions } from "vuex";
+import { setToken } from "../modules/auth/_token";
 
 export default {
   name: "AuthLayout",
@@ -41,10 +42,7 @@ export default {
 
       try {
         const response = await login(data);
-        const access_token = response.data.access_token;
-        const token_type = response.data.token_type;
-        localStorage.setItem('access_token', access_token);
-        localStorage.setItem('token_type', token_type);
+        setToken(response.data.token_type, response.data.access_token);
         const userDataResponse = await me();
         const user = userDataResponse.data;
         this.setUser(user);

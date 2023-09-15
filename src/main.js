@@ -7,7 +7,7 @@ import { createVuestic } from 'vuestic-ui';
 import VueSocketIO from 'vue-3-socket.io';
 import SocketIO from 'socket.io-client';
 
-const socketConnection = SocketIO('http://localhost:3000');
+const socketConnection = SocketIO('http://localhost:3000', { withCredentials: false });
 
 const app = createApp(App);
 

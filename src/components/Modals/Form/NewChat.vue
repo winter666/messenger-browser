@@ -46,7 +46,8 @@ import UserList from "@/components/Lists/UserList";
 import user from '@/modules/api/user';
 import chat from '@/modules/api/chat';
 import Loader from "@/components/Genreal/Loader";
-import {mapActions, mapGetters} from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import { getFullToken } from "../../../modules/auth/_token";
 
 export default {
   name: "NewChat",
@@ -80,7 +81,7 @@ export default {
       const response = await chat.createChat(this.getUser().id, this.selectedUserId);
       if (response.status === 200) {
         this.requestSend = true;
-        this.$socket.emit('get-user-chats', {user_id: this.getUser().id});
+        this.$socket.emit('get-user-chats', {user_id: this.getUser().id, _token: getFullToken()});
         this.$router.push({name: 'Chat', params: {chat_id: response.data.item.id} });
         this.requestSend = false;
         this.disableModal();

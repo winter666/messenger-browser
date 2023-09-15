@@ -11,6 +11,7 @@ class User extends ApiEntity {
             entity: this.entity,
             uri: `/getByEmailOrName`,
             data: {emailOrName},
+            authorization: true,
         });
     }
 }

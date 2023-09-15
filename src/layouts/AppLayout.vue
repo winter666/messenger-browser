@@ -19,6 +19,7 @@ import GeneralHeader from "../components/Genreal/GeneralHeader";
 import Loader from "../components/Genreal/Loader";
 import { me } from "../modules/api/auth";
 import ModalPopup from "../components/Modals/ModalPopup";
+import { getFullToken } from "../modules/auth/_token";
 
 export default {
   name: "AppLayout",
@@ -37,21 +38,20 @@ export default {
     ...mapActions(['setUser', 'enableMainLoader', 'disableMainLoader']),
     ...mapGetters(['getUser']),
   },
-  mounted() {
+  async mounted() {
     this.sockets.subscribe('get-user-chats', (data) => {
       this.disableMainLoader();
     });
     this.sockets.subscribe('send-message', (data) => {
     });
-  },
-  async created() {
+
     this.enableMainLoader();
     try {
       const response = await me();
       const user = response.data;
       this.setUser(user);
 
-      this.$socket.emit('get-user-chats', {user_id: this.getUser().id});
+      this.$socket.emit('get-user-chats', {user_id: this.getUser().id, _token: getFullToken()});
     } catch (e) {
       localStorage.clear();
       this.$router.push({ name: 'Login' });

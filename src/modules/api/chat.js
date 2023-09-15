@@ -11,6 +11,7 @@ class Chat extends ApiEntity {
             entity: this.entity,
             uri: `/${chat_id}/message/push`,
             data: { user_id, content },
+            authorization: true,
         });
     }
 
@@ -19,6 +20,7 @@ class Chat extends ApiEntity {
             entity: this.entity,
             uri: '/new',
             data: {current_id, user_id},
+            authorization: true,
         });
     }
 }

@@ -10,7 +10,8 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from "vuex";
+import { mapGetters } from "vuex";
+import { getFullToken } from "../../../modules/auth/_token";
 
 export default {
   name: "Panel",
@@ -40,7 +41,7 @@ export default {
       const chat_id = parseInt(this.$route.params.chat_id);
       const {user} = message;
 
-      this.$socket.emit('send-message', {content: this.messageContent, chat_id, user_id: user.id});
+      this.$socket.emit('send-message', {content: this.messageContent, chat_id, user_id: user.id, _token: getFullToken()});
       this.messageContent = '';
     },
   },

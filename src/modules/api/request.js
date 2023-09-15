@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getFullToken } from "../auth/_token";
 
 class Request {
 
@@ -18,7 +19,7 @@ class Request {
         const config = {};
         if (params.authorization) {
             config.headers = params.headers ?? {};
-            config.headers.Authorization = localStorage.getItem('token_type') + " " + localStorage.getItem('access_token');
+            config.headers.Authorization = getFullToken();
         }
 
         return config;
