@@ -35,14 +35,17 @@ export default {
     ...mapGetters(['getActiveMainLoader']),
   },
   methods: {
-    ...mapActions(['setUser', 'enableMainLoader', 'disableMainLoader']),
-    ...mapGetters(['getUser']),
+    ...mapActions(['setUser', 'getUser', 'enableMainLoader', 'disableMainLoader']),
   },
   async mounted() {
     this.sockets.subscribe('get-user-chats', (data) => {
       this.disableMainLoader();
     });
     this.sockets.subscribe('send-message', (data) => {
+      console.log(data);
+    });
+    this.sockets.subscribe('error-msg', (data) => {
+      console.log(data);
     });
 
     this.enableMainLoader();
@@ -50,8 +53,8 @@ export default {
       const response = await me();
       const user = response.data;
       this.setUser(user);
-
-      this.$socket.emit('get-user-chats', {user_id: this.getUser().id, _token: getFullToken()});
+      this.$socket.emit('set-user', {user_id: user.id, _token: getFullToken()});
+      this.$socket.emit('get-user-chats', {user_id: user.id, _token: getFullToken()});
     } catch (e) {
       localStorage.clear();
       this.$router.push({ name: 'Login' });

@@ -7,31 +7,33 @@
         :class="{active: chat.id === parseInt($route.params.chat_id)}"
         :to="{ name: 'Chat', params: { chat_id: chat.id } }"
     >
-      <va-list-item-section avatar>
-        <va-avatar>
-          {{ getUserAvatar(chat.users) }}
-        </va-avatar>
-      </va-list-item-section>
+      <template v-if="!chat.personalization || (chat.personalization[getUser.id] && !chat.personalization[getUser.id].hidden)">
+        <va-list-item-section avatar>
+          <va-avatar>
+            {{ getUserAvatar(chat.users) }}
+          </va-avatar>
+        </va-list-item-section>
 
-      <va-list-item-section>
-        <va-list-item-label>
-          {{ getChatPartner(chat.users).name }}
-        </va-list-item-label>
+        <va-list-item-section>
+          <va-list-item-label>
+            {{ getChatPartner(chat.users).name }}
+          </va-list-item-label>
 
-        <va-list-item-label v-if="chat.messages.length > 0" caption>
-              <span
-                  v-if="chat.messages[chat.messages.length - 1].user.id === getUser.id"
-                  style="color: #3f3f3f"
-              >
-                Вы:
-              </span>
-          {{ chat.messages[chat.messages.length - 1].content }}
-        </va-list-item-label>
-      </va-list-item-section>
+          <va-list-item-label v-if="chat.messages.length > 0" caption>
+                <span
+                    v-if="chat.messages[chat.messages.length - 1].user.id === getUser.id"
+                    style="color: #3f3f3f"
+                >
+                  Вы:
+                </span>
+            {{ chat.messages[chat.messages.length - 1].content }}
+          </va-list-item-label>
+        </va-list-item-section>
 
-      <va-list-item-section v-if="chat.messages.length" icon>
-        {{ parseMessageDate(chat.messages[chat.messages.length - 1].created_at) }}
-      </va-list-item-section>
+        <va-list-item-section v-if="chat.messages.length" icon>
+          {{ parseMessageDate(chat.messages[chat.messages.length - 1].created_at) }}
+        </va-list-item-section>
+      </template>
     </va-list-item>
     <div v-if="getChats.length === 0" class="opacity-5 empty-list">Nothing to view</div>
   </va-list>

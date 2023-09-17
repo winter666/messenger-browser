@@ -7,13 +7,19 @@ import { createVuestic } from 'vuestic-ui';
 import VueSocketIO from 'vue-3-socket.io';
 import SocketIO from 'socket.io-client';
 
-const socketConnection = SocketIO('http://localhost:3000', { withCredentials: false });
+const socketConnection = SocketIO(process.env.VUE_APP_API_WS, {
+    withCredentials: false,
+    transports: ['websocket', 'polling'],
+    timeout: 2000000,
+});
 
 const app = createApp(App);
 
 app.use(new VueSocketIO({
+    transports: ['websocket'],
     debug: true,
     connection: socketConnection,
+    timeout: 2000000,
     vuex: {
         store,
         actionPrefix: 'SOCKET_',

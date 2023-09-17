@@ -61,7 +61,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['setUser', 'disableModal']),
+    ...mapActions(['setUser', 'disableModal', 'enableMainLoader']),
     ...mapGetters(['getUser']),
     userSelected(userId) {
       this.selectedUserId = userId;
@@ -78,13 +78,13 @@ export default {
       }
     },
     async createChat() {
+      this.requestSend = true;
       const response = await chat.createChat(this.getUser().id, this.selectedUserId);
       if (response.status === 200) {
-        this.requestSend = true;
         this.$socket.emit('get-user-chats', {user_id: this.getUser().id, _token: getFullToken()});
-        this.$router.push({name: 'Chat', params: {chat_id: response.data.item.id} });
         this.requestSend = false;
         this.disableModal();
+        this.enableMainLoader();
       }
     },
   },
